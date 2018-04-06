@@ -15,3 +15,18 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+body {
+	color: white;
+	background: grey;
+	text-align: center;
+}
+
+#form-group {
+	margin: center;
+	color: red;
+}
+
+navbar-header {
+	color: white;
+}

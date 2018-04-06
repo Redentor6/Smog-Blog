@@ -3,5 +3,7 @@
 <div class="col-sm-11 col-xs-12 blog-content">
   <h2 class="text-center"><%= @post.title %></h2>
   <h5 class="text-center"><%= @post.created_at.strftime('%b %d, %Y') %></h5>
-  <div><%= raw @post.body %></div>
+  <div><%=@post[:body].split('<p>')[1].split('<')[0]%></div>
+  	<%=link_to("edit this blog", edit_post_path)%><br>
+  	<%=link_to("go back", posts_path)%>
 </div>

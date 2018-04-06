@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
 	  before_action :find_post, only: [:edit, :update, :show, :delete]
+	  before_action :authenticate_admin!, except: [:index, :show]
 #render all posts
 	def index
 		@posts = Post.all
@@ -7,7 +8,7 @@ class PostsController < ApplicationController
 
 #action for creating posts
 	def new
-		@post = Post.new
+		@post = Post.new 
 	end
 
 #action for saving post to db
@@ -24,9 +25,10 @@ class PostsController < ApplicationController
 
 #updates post with new info
 	def update
-		if @post.update_attributes(post_params)
+	
+		if @post.update(post_params)
 			flash[:notice] = "Solid Update!"
-			redirect_to post_path(@posts)
+			redirect_to post_path
 		else
 			flash[:alert] = "Try Again!"
 			render :edit
@@ -35,6 +37,7 @@ class PostsController < ApplicationController
 
 #renders individual posts after getting the ID
 	def show
+		@post
 	end
 
 #deletes post from db
@@ -46,17 +49,18 @@ class PostsController < ApplicationController
 			flash[:alert] = "Try Again!"
 		end
 	end
+	
 
 private
 
+	def find_post	
+		@post = Post.find(params[:id])
+	end
 
 	def post_params
 		params.require(:post).permit(:title, :body)
 	end
 
-	def find_post
-		@post = Post.find(params[:id])
-	end
 end
 
 
